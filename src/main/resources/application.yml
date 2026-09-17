@@ -1,0 +1,8 @@
+quarkus:
+  http:
+    port: 8081
+
+  mongodb:
+    #connection-string: mongodb://admin:12345@localhost:27017/willca-product?authSource=admin
+    connection-string: mongodb://admin:12345@localhost:27017
+    database: willca-product
