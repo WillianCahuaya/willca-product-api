@@ -1,5 +1,6 @@
 package com.willca.product.resource;
 
+import Interceptor.ResourceLogged;
 import com.willca.product.dto.ProductRequest;
 import com.willca.product.dto.ProductResponse;
 import com.willca.product.model.Product;
@@ -13,6 +14,7 @@ import org.bson.types.ObjectId;
 
 import java.util.List;
 
+@ResourceLogged
 @Path("/products")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

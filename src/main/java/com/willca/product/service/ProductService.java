@@ -1,5 +1,6 @@
 package com.willca.product.service;
 
+import Interceptor.ServiceLogged;
 import com.willca.product.dto.ProductRequest;
 import com.willca.product.dto.ProductResponse;
 import com.willca.product.exception.ProductNotFoundException;
@@ -7,10 +8,13 @@ import com.willca.product.model.Product;
 import com.willca.product.repository.ProductRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import lombok.extern.jbosslog.JBossLog;
 import org.bson.types.ObjectId;
 
 import java.util.List;
 
+@JBossLog
+@ServiceLogged
 @ApplicationScoped
 public class ProductService {
 
@@ -18,25 +22,33 @@ public class ProductService {
     ProductRepository productRepository;
 
     public List<ProductResponse> findAll() {
-        return productRepository.listAll()
+        List<ProductResponse> result = productRepository.listAll()
                 .stream()
                 .map(this::toResponse)
                 .toList();
+
+        log.infof("All Products: %s", result.size());
+        return result;
     }
 
     public List<ProductResponse> findByStatus(String status) {
-        return productRepository.findByStatus(status)
+        List<ProductResponse> result = productRepository.findByStatus(status)
                 .stream()
                 .map(this::toResponse)
                 .toList();
+        log.infof("All Products: %s", result.size());
+        return result;
     }
 
     public ProductResponse findById(ObjectId id) {
         Product product = productRepository.findById(id);
+        log.infof("Product found: %s", product);
         if (product == null) {
             throw new ProductNotFoundException("Product not found: " + id);
         }
-        return toResponse(product);
+        ProductResponse response = toResponse(product);
+        log.infof("Product converted: %s", response);
+        return response;
     }
 
     public ProductResponse create(ProductRequest request) {
@@ -45,7 +57,11 @@ public class ProductService {
         product.setPrice(request.getPrice());
         product.setStatus(request.getStatus());
         productRepository.persist(product);
-        return toResponse(product);
+        log.infof("Product created: %s", product);
+
+        ProductResponse response = toResponse(product);
+        log.infof("Product converted: %s", response);
+        return response;
     }
 
     public ProductResponse update(ObjectId id, Product product) {
@@ -59,11 +75,15 @@ public class ProductService {
         existing.setPrice(product.getPrice());
         existing.setStatus(product.getStatus());
         productRepository.update(existing);
+        log.infof("Product updated: %s", product);
 
-        return toResponse(existing);
+        ProductResponse response = toResponse(product);
+        log.infof("Product converted: %s", response);
+        return response;
     }
 
     public boolean delete(ObjectId id) {
+        log.infof("Product ID to delete: %s", id);
         return productRepository.deleteById(id);
     }
 
