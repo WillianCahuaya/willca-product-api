@@ -6,3 +6,12 @@ quarkus:
     #connection-string: mongodb://admin:12345@localhost:27017/willca-product?authSource=admin
     connection-string: mongodb://admin:12345@localhost:27017
     database: willca-product
+
+  rest-client:
+    weather-api:
+      url: https://api.openweathermap.org
+      connect-timeout: 5000
+      read-timeout: 10000
+
+weather:
+  api-key: ${WEATHER_API_KEY}
