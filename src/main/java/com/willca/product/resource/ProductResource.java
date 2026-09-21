@@ -5,6 +5,7 @@ import com.willca.product.dto.ProductRequest;
 import com.willca.product.dto.ProductResponse;
 import com.willca.product.model.Product;
 import com.willca.product.service.ProductService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -41,6 +42,7 @@ public class ProductResource {
     }
 
     @POST
+    @RolesAllowed("user")
     public ProductResponse create(@Valid ProductRequest product) {
         return productService.create(product);
     }

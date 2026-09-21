@@ -15,3 +15,26 @@ quarkus:
 
 weather:
   api-key: ${WEATHER_API_KEY}
+
+product:
+  jwt:
+    issuer: ${PRODUCT_SECURITY_JWT_ISSUER}
+    audience: ${PRODUCT_SECURITY_JWT_AUDIENCE}
+    expiration: ${PRODUCT_SECURITY_JWT_EXPIRATION:3600}
+
+mp:
+  jwt:
+    verify:
+      issuer: ${PRODUCT_SECURITY_JWT_ISSUER}
+      audiences: ${PRODUCT_SECURITY_JWT_AUDIENCE}
+      publickey:
+        location: ${PRODUCT_SECURITY_JWT_PUBLIC_KEY_LOCATION}
+
+smallrye:
+  jwt:
+    sign:
+      key:
+        location: ${PRODUCT_SECURITY_JWT_PRIVATE_KEY_LOCATION}
+
+    new-token:
+      signature-algorithm: RS256
