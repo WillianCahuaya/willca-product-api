@@ -1,6 +1,6 @@
 package com.willca.product.repository;
 
-import com.willca.product.model.Product;
+import com.willca.product.entity.Product;
 import io.quarkus.mongodb.panache.PanacheMongoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 

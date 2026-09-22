@@ -1,18 +1,15 @@
 package com.willca.product.service;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import Interceptor.ServiceLogged;
-import com.willca.product.client.WeatherClient;
 import com.willca.product.dto.ProductRequest;
 import com.willca.product.dto.ProductResponse;
 import com.willca.product.exception.ProductNotFoundException;
-import com.willca.product.model.Product;
+import com.willca.product.entity.Product;
 import com.willca.product.repository.ProductRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lombok.extern.jbosslog.JBossLog;
 import org.bson.types.ObjectId;
-import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.util.List;
 
